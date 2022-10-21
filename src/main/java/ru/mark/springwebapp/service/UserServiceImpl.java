@@ -3,48 +3,45 @@ package ru.mark.springwebapp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.mark.springwebapp.dao.UserDao;
 import ru.mark.springwebapp.models.User;
-import ru.mark.springwebapp.repositories.UserRepository;
 
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
 
-    private final UserRepository userRepository;
-
+    private final UserDao userDao;
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
     }
-
 
     @Override
     @Transactional(readOnly = true)
     public List<User> index() {
-        return userRepository.findAll();
+        return userDao.index();
     }
 
     @Override
     @Transactional(readOnly = true)
     public User show(int id) {
-        return userRepository.findById(id).orElse(null);
+        return userDao.show(id);
     }
 
     @Override
     @Transactional
     public void save(User user) {
-        userRepository.save(user);
+        userDao.save(user);
     }
 
     @Override
     @Transactional
     public void update(int id, User newUser) {
-        newUser.setId(id);
-        userRepository.save(newUser);
+        userDao.update(id, newUser);
     }
 
     @Override
     @Transactional
-    public void delete(int id) { userRepository.deleteById(id); }
+    public void delete(int id) { userDao.delete(id); }
 }

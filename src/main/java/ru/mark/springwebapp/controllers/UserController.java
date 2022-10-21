@@ -13,7 +13,6 @@ import ru.mark.springwebapp.service.UserService;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -23,21 +22,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping("/users")
     public String index(Model model) {
         model.addAttribute("users", userService.index());
         return "users/index";
     }
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.show(id));
         return "users/show";
     }
-    @GetMapping("/new")
+    @GetMapping("/users/new")
     public String newUser(@ModelAttribute("user") User user) {
         return "users/new";
     }
-    @PostMapping()
+    @PostMapping("/users")
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "users/new";
@@ -46,13 +45,13 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/users/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.show(id));
         return "users/edit";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/users/{id}")
     public String update(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
@@ -63,7 +62,7 @@ public class UserController {
         return "redirect:/users/{id}";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("users/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
         return "redirect:/users";
@@ -76,3 +75,8 @@ public class UserController {
 //4. Конфигурация Spring через JavaConfig и аннотации, по аналогии с предыдущими проектами.
 // Без использования xml. Без Spring Boot.
 //5. Внесите изменения в конфигурацию для работы с базой данных. Вместо SessionFactory должен использоваться EntityManager.
+
+//@GetMapping() зачем пустой конструктор
+//модель всегда эевалс и хешкод
+//public interface UserRepository extends JpaRepository<User, Integer>
+// у тебя есть четкое задание что нужно использовать в качестве дао

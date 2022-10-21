@@ -29,7 +29,7 @@ import java.util.Properties;
 @ComponentScan("ru.mark.springwebapp")
 @EnableWebMvc
 @PropertySource("classpath:db.properties")
-@EnableJpaRepositories("ru.mark.springwebapp.repositories")
+@EnableJpaRepositories("ru.mark.springwebapp.dao")
 @EnableTransactionManagement
 public class JavaConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;

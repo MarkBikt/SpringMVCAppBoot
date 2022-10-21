@@ -1,10 +1,10 @@
-package ru.mark.springwebapp.service;
+package ru.mark.springwebapp.dao;
 
 import ru.mark.springwebapp.models.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserDao {
     List<User> index();
     User show(int id);
     void save(User user);
