@@ -19,9 +19,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public List<User> index() {
-        return entityManager
-                .createQuery("select u from User u", User.class)
-                .getResultList();
+        return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
     @Override
@@ -36,10 +34,10 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void update(int id, User newUser) {
-        User personToBeUpdated = entityManager.find(User.class, id);
+        User user = entityManager.find(User.class, id);
 
-        personToBeUpdated.setName(newUser.getName());
-        personToBeUpdated.setSurname(newUser.getSurname());
+        user.setName(newUser.getName());
+        user.setSurname(newUser.getSurname());
     }
 
     @Override
